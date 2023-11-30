@@ -11,7 +11,7 @@ async function onBeforeRender(pageContext) {
   const res = await fetch("http://host.docker.internal:3000/api/user_data/", {
     headers: {
       cookie: pageContext.requestHeaders.cookie,
-      'X-CSRFToken': pageContext.xcsrfToken
+      'X-CSRFToken': pageContext.xcsrfToken,
     },
     method: 'GET',
     credentials: 'include'
