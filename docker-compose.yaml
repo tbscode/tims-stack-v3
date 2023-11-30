@@ -1,0 +1,55 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      DJANGO_DEBUG: 'true'
+      PRODUCTION: 'true'
+      ROOT_URL: 'http://localhost'
+      ROOT_HOST: 't1m.me'
+      EXTRA_TRUSTED_ORIGINS: ''
+      DJANGO_SECRET_KEY: 'SomeSecret'
+      DJANGO_ALLOWED_HOSTS: '*'
+      REDIS_URL: 'redis://host.docker.internal:6379'
+      USE_NEXTJS_PROXY_ROUTES: 'true'
+      NEXTJS_HOST_URL: 'http://host.docker.internal:3000'
+      BASE_ADMIN_USERNAME: 'admin'
+      BASE_ADMIN_USER_PASSWORD: 'password'
+    volumes:
+      - ./backend:/backend
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+      args:
+        NEXT_PUBLIC_WS_PATH: "$NEXT_PUBLIC_WS_PATH"
+        WS_PATH_ANDROID: "$WS_PATH_ANDROID"
+        NEXT_PUBLIC_HOST_ANDROID: "$NEXT_PUBLIC_HOST_ANDROID"
+        HOST_WEB: "$HOST_WEB"
+    ports:
+      - "3000:3000"
+      - "24678:24678"
+    volumes:
+      - ./frontend/package.json:/frontend/package.json
+      - ./frontend/package-lock.json:/frontend/package-lock.json
+      - ./frontend/pages:/frontend/pages
+      - ./frontend/renderer:/frontend/renderer
+      - ./frontend/server:/frontend/server
+      - ./frontend/vite.config.js:/frontend/vite.config.js
+    environment:
+      ROOT_URL: 'http://localhost'
+      WEBSOCKET_PROTOCOL: 'ws://'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  redis:
+    image: redis:5
+    ports:
+      - "6379:6379"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
