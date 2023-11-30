@@ -9,6 +9,7 @@ import { escapeInject, dangerouslySkipEscape } from 'vike/server'
 import logoUrl from './logo.svg'
 import { getStore } from './store/store'
 import { Provider } from 'react-redux'
+import "./index.css"
 
 async function render(pageContext) {
   const { Page, pageProps } = pageContext

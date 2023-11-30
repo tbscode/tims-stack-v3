@@ -8,7 +8,7 @@ export { onBeforeRender }
 
 async function onBeforeRender(pageContext) {
   // 1. We take the headers and cookies from the intial request and use it to fetch the user_data  
-  const res = await fetch("http://host.docker.internal:3000/api/user_data/", {
+  const res = await fetch("http://host.docker.internal:8000/api/user_data", {
     headers: {
       cookie: pageContext.requestHeaders.cookie,
       'X-CSRFToken': pageContext.xcsrfToken,
@@ -17,6 +17,7 @@ async function onBeforeRender(pageContext) {
     credentials: 'include'
   })
   const data = await res.json()
+
 
   return {
     pageContext: {
