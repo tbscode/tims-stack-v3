@@ -4,37 +4,8 @@ import fetch from 'node-fetch'
 
 
 export { Page }
-export { onBeforeRender }
-
-async function onBeforeRender(pageContext) {
-  // 1. We take the headers and cookies from the intial request and use it to fetch the user_data  
-  const res = await fetch("http://host.docker.internal:8000/api/user_data", {
-    headers: {
-      cookie: pageContext.requestHeaders.cookie,
-      'X-CSRFToken': pageContext.xcsrfToken,
-    },
-    method: 'GET',
-    credentials: 'include'
-  })
-  const data = await res.json()
-
-
-  return {
-    pageContext: {
-      pageProps: {
-
-      }
-    }
-  }
-}
 
 function Page(pageProps) {
-  const chats = useSelector((state) => state.chats)
-  const messages = useSelector((state) => state.messages)
-  const user = useSelector((state) => state.user)
-  console.log("PAGE", chats, messages, user)
-
-
   return (
     <>
           <h1 className="text-7xl font-bold underline text-red">SSR</h1>

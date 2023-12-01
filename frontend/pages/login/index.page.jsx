@@ -1,43 +1,39 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 
 export { Page }
 
 function Page(pageProps) {
-  const chats = useSelector((state) => state.chats)
-  const messages = useSelector((state) => state.messages)
-  const user = useSelector((state) => state.user)
-    
-  console.log("PAGE", chats, messages, user)
-
 
   return (
-    <>
-          <h1 className="text-7xl font-bold underline text-red">SSR</h1>
-      <div className="chat chat-start">
-  <div className="chat-image avatar">
-    <div className="w-10 rounded-full">
-      <img alt="Tailwind CSS chat bubble component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+    <div className="hero min-h-screen bg-base-200">
+  <div className="hero-content flex-col lg:flex-row-reverse">
+    <div className="text-center lg:text-left">
+      <h1 className="text-5xl font-bold">Login now!</h1>
+      <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+    </div>
+    <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+      <form className="card-body">
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Email</span>
+          </label>
+          <input type="email" placeholder="email" className="input input-bordered" required />
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Password</span>
+          </label>
+          <input type="password" placeholder="password" className="input input-bordered" required />
+          <label className="label">
+            <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+          </label>
+        </div>
+        <div className="form-control mt-6">
+          <button className="btn btn-primary">Login</button>
+        </div>
+      </form>
     </div>
   </div>
-  <div className="chat-bubble">It was said that you would, destroy the Sith, not join them.</div>
 </div>
-<div className="chat chat-start">
-  <div className="chat-image avatar">
-    <div className="w-10 rounded-full">
-      <img alt="Tailwind CSS chat bubble component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-    </div>
-  </div>
-  <div className="chat-bubble">It was you who would bring balance to the Force</div>
-</div>
-<div className="chat chat-start">
-  <div className="chat-image avatar">
-    <div className="w-10 rounded-full">
-      <img alt="Tailwind CSS chat bubble component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-    </div>
-  </div>
-  <div className="chat-bubble">Not leave it in Darkness</div>
-</div>
-    </>
   )
 }
