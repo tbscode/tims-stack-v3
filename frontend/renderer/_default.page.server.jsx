@@ -1,6 +1,6 @@
 export { render }
 // See https://vike.dev/data-fetching
-export const passToClient = ['pageProps', 'urlPathname', 'PRELOADED_STATE']
+export const passToClient = ['pageProps', 'urlPathname', 'PRELOADED_STATE', 'shell']
 
 import ReactDOMServer from 'react-dom/server'
 
@@ -19,7 +19,7 @@ async function render(pageContext) {
   // This render() hook only supports SSR, see https://vike.dev/render-modes for how to modify render() to support SPA
   if (!Page) throw new Error('My render() hook expects pageContext.Page to be defined')
   const pageHtml = ReactDOMServer.renderToString(
-    <PageShell pageContext={pageContext}>
+    <PageShell pageContext={pageContext} shell={pageContext.shell || "default"}>
       <Provider store={store}>
         <Page {...pageProps} />
       </Provider>

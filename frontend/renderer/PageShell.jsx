@@ -8,97 +8,69 @@ import { childrenPropType } from './PropTypeValues'
 
 export { PageShell }
 
+const links = [
+  {route: '/', label: 'Home'},
+  {route: '/app', label: 'Dashboard'},
+]
+
 PageShell.propTypes = {
   pageContext: PropTypes.any,
   children: childrenPropType
 }
-function PageShell({ pageContext, children }) {
-  return (
-    <React.StrictMode>
+function PageShell({ pageContext, children, shell="default" }) {
+  console.log("PAGE SHELL", shell)
+  if(shell === "default") {
+    return (<React.StrictMode>
       <PageContextProvider pageContext={pageContext}>
-        <Layout>
-          <Sidebar>
-            <Logo />
-            <Link className="navitem" href="/">
-              Home
-            </Link>
-            <Link className="navitem" href="/app">
-              App (Authenticated)
-            </Link>
-          </Sidebar>
-          <Content>{children}</Content>
-        </Layout>
+        {children}
       </PageContextProvider>
-    </React.StrictMode>
-  )
+    </React.StrictMode>)
+  }else if(shell === "dashboard") {
+    return (
+      <React.StrictMode>
+        <PageContextProvider pageContext={pageContext}>
+          <BaseLayout>
+            {children}
+          </BaseLayout>
+        </PageContextProvider>
+      </React.StrictMode>
+    )
+  }
 }
 
-Layout.propTypes = {
-  children: childrenPropType
-}
-function Layout({ children }) {
-  return (
-    <div
-      style={{
-        display: 'flex',
-        maxWidth: 900,
-        margin: 'auto'
-      }}
-    >
-      {children}
-    </div>
-  )
-}
 
-Sidebar.propTypes = {
-  children: childrenPropType
-}
-function Sidebar({ children }) {
+function BaseLayout({ children }) {
   return (
-    <div
-      style={{
-        padding: 20,
-        flexShrink: 0,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        lineHeight: '1.8em'
-      }}
-    >
-      {children}
+    <div className="drawer">
+  <input id="my-drawer-3" type="checkbox" className="drawer-toggle" /> 
+  <div className="drawer-content flex flex-col">
+    {/* Navbar */}
+    <div className="w-full navbar bg-base-300">
+      <div className="flex-none lg:hidden">
+        <label htmlFor="my-drawer-3" aria-label="open sidebar" className="btn btn-square btn-ghost">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-6 h-6 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </label>
+      </div> 
+      <div className="flex-1 px-2 mx-2">Navbar Title</div>
+      <div className="flex-none hidden lg:block">
+        <ul className="menu menu-horizontal">
+          {/* Navbar menu content here */}
+          {links.map(({ route, label }) => {
+            return <li><a href={route}>{label}</a></li>
+          })}
+        </ul>
+      </div>
     </div>
-  )
-}
-
-Content.propTypes = {
-  children: childrenPropType
-}
-function Content({ children }) {
-  return (
-    <div
-      style={{
-        padding: 20,
-        paddingBottom: 50,
-        borderLeft: '2px solid #eee',
-        minHeight: '100vh'
-      }}
-    >
-      {children}
-    </div>
-  )
-}
-
-function Logo() {
-  return (
-    <div
-      style={{
-        marginTop: 20,
-        marginBottom: 10
-      }}
-    >
-      <a href="/">
-        <img src={logo} height={64} width={64} alt="logo" />
-      </a>
-    </div>
+    {children}
+  </div> 
+  <div className="drawer-side">
+    <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label> 
+    <ul className="menu p-4 w-80 min-h-full bg-base-200">
+      {/* Sidebar content here */}
+      <li><a>Sidebar Item 1</a></li>
+      <li><a>Sidebar Item 2</a></li>
+    </ul>
+  </div>
+</div>
   )
 }

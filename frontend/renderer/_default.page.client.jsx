@@ -17,9 +17,13 @@ export const clientRouting = true
 let root
 const render = async (pageContext) => {
   const { Page, pageProps } = pageContext
+
+  const store = getStore(pageContext.PRELOADED_STATE)
   const page = (
-    <PageShell pageContext={pageContext}>
-      <Page {...pageProps} />
+    <PageShell pageContext={pageContext} shell={pageContext.shell || "default"}>
+        <Provider store={store}>
+          <Page {...pageProps} />
+        </Provider>
     </PageShell>
   )
   const container = document.getElementById('react-root')

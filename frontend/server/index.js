@@ -63,7 +63,8 @@ async function startServer() {
       requestBody: req.body,
       requestHeaders: req.headers,
       cookies: req.headers.cookie,
-      xcsrfToken: req.cookies['csrftoken']
+      xcsrfToken: req.cookies['csrftoken'],
+      sessionId: req.cookies['sessionid'] || null,
     }
 
     const pageContext = await renderPage(pageContextInit)
