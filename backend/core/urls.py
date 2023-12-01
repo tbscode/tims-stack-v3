@@ -50,9 +50,9 @@ chat_api_user = api.chats.ChatsModelViewSet.as_view({
 
 urlpatterns = [
     path("api/register", api.register.register_user),
-    path("api/user_data/", api.user_data.request_user_data),
+    path("api/user_data", api.user_data.request_user_data),
     path("api/login", api.login.login_user),
-    path("api/profile/", profile_api_user),
+    path("api/profile", profile_api_user),
 
     path("api/chats/", chat_api_user_list),
     path("api/chats/<str:pk>/", chat_api_user),

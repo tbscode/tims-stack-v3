@@ -23,3 +23,5 @@ django-model-utils
 requests
 django-prometheus
 bs4
+ddrr
+django-revproxy
