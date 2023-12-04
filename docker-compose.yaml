@@ -41,7 +41,10 @@ services:
       - ./frontend/pages:/frontend/pages
       - ./frontend/renderer:/frontend/renderer
       - ./frontend/server:/frontend/server
+      - ./frontend/atoms:/frontend/atoms
+      - ./frontend/node_modules:/frontend/node_modules
       - ./frontend/vite.config.js:/frontend/vite.config.js
+    entrypoint: sh -c "npm install && npm run dev"
     environment:
       ROOT_URL: 'http://localhost'
       WEBSOCKET_PROTOCOL: 'ws://'
