@@ -14,8 +14,6 @@ function Page(pageProps) {
   const selectedChat = useSelector(state => state.chats.selectedChat)
   const chats = useSelector(state => state.chats)
   const user = useSelector(state => state.user)
-  console.log("initUser", user)
-  
   const messages = useSelector(state => state.messages)
   const selectedChatMessages = (selectedChat in messages) ? messages[selectedChat] : null
   
