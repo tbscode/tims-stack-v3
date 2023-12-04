@@ -52,12 +52,14 @@ def get_user_data(user, request):
     #message_viewset.initialize_request(request)
     
     return {
-        "uuid": str(user.uuid),
-        "email": user.email,
-        "is_staff": user.is_staff,
         "chats": chats_paginated,
         "messages": messages,
-        "profile": UserProfileSerializer(user.profile).data,
+        "user": {
+            "profile": UserProfileSerializer(user.profile).data,
+            "uuid": str(user.uuid),
+            "email": user.email,
+            "is_staff": user.is_staff,
+        }
     }
 
 @api_view(['GET'])
@@ -73,4 +75,4 @@ def request_user_data(request):
     #response = Response(ud, status=status.HTTP_200_OK)
     
     #print("TBS got ud", ud)
-    return Response({})
+    return Response(get_user_data(request.user, request))
