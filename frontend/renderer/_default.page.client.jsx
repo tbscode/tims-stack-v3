@@ -4,24 +4,34 @@ import ReactDOM from 'react-dom/client'
 import { PageShell } from './PageShell'
 import { getStore } from './store/store'
 import { Provider } from 'react-redux'
+import WebsocketBridge from '../atoms/websocket-bridge'
 import "./index.css"
 
 export const hydrationCanBeAborted = true
 export const clientRouting = true
 
-// This render() hook only supports SSR, see https://vike.dev/render-modes for how to modify render() to support SPA
-/* To enable Client-side Routing:
-export const clientRouting = true
-// !! WARNING !! Before doing so, read https://vike.dev/clientRouting */
-
 let root
+let globalStore = null
 const render = async (pageContext) => {
   const { Page, pageProps } = pageContext
+ 
+  
+  let store = globalStore
+  if(!store){
+    if(pageContext.PRELOADED_STATE)
+      store = getStore(pageContext.PRELOADED_STATE)
+    else
+      store = getStore()
+    globalStore = store
+  }
+  let state = store.getState()
 
-  const store = getStore(pageContext.PRELOADED_STATE)
+  console.log("CLIENT RENDER", pageContext.PRELOADED_STATE, store, globalStore)
+
   const page = (
     <PageShell pageContext={pageContext} shell={pageContext.shell || "default"}>
         <Provider store={store}>
+          <WebsocketBridge />
           <Page {...pageProps} />
         </Provider>
     </PageShell>

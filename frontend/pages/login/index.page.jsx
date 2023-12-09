@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { navigate } from 'vike/client/router'
+import { useDispatch, useSelector } from 'react-redux'
 
 export { Page }
 export { onBeforeRender }
@@ -16,6 +17,11 @@ async function onBeforeRender(pageContext) {
 }
 
 function Page(pageProps) {
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user)
+  const chats = useSelector(state => state.chats)
+  
+  console.log("user", user, chats)
   
   const [loginData, setLoginData] = useState({
     username: "testUser1",
@@ -41,7 +47,21 @@ function Page(pageProps) {
       })
     }).then(res => {
       if (res.status === 200) {
-        navigate("/app")
+        res.json().then(data => {
+          // sucessfull login is expected to return `user_data`
+          console.log("GOT user_data from login", data)
+          
+          dispatch({
+            type: 'initChats',
+            payload: data.chats
+          })
+        
+          dispatch({
+            type: 'initUser',
+            payload: data.user
+          })
+          
+        })
       }
       // TODO: better error handling
     })
@@ -86,6 +106,9 @@ function Page(pageProps) {
             console.log("LOGIN", loginData)
             performLogin() 
           }}>Login</button>
+          <button className="btn btn-primary" onClick={() => {
+            navigate('/app/')
+          }}>navigate</button>
         </div>
       </div>
     </div>

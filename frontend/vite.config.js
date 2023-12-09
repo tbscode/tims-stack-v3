@@ -6,7 +6,9 @@ import { builtinModules } from 'module';
 
 
 export default {
-  plugins: [react(), vike(), tailwindcss()],
+  plugins: [react(), vike({
+    prerender: true
+  }), tailwindcss()],
   alias: {
     resolve: {
       './runtimeConfig': './runtimeConfig.browser',

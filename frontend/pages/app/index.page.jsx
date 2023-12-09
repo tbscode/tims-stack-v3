@@ -15,29 +15,11 @@ function Page(pageProps) {
   const chats = useSelector(state => state.chats)
   const user = useSelector(state => state.user)
   const messages = useSelector(state => state.messages)
+
   const selectedChatMessages = (selectedChat in messages) ? messages[selectedChat] : null
   
-  useEffect(() => {
-    /**
-     * Chats & Messages might be pre fetched by the server
-     */
-    if(!chats.initalized && pageProps.chats)
-      dispatch({
-        type: 'initChats',
-        payload: pageProps.chats
-      })
-    if(!messages.initalized && pageProps.messages)
-      dispatch({
-        type: 'initMessages',
-        payload: pageProps.messages
-      })
-    if(!user.initalized && pageProps.user)
-      dispatch({
-        type: 'initUser',
-        payload: pageProps.user
-      })
-  }, []);
-
+  console.log("selectedChatMessages", selectedChatMessages, chats, user)
+  
   useEffect(() => {
     console.log("selectedChat", selectedChat)
     if (selectedChat)
@@ -47,7 +29,7 @@ function Page(pageProps) {
   return <ChatSplit 
     leftPanel={
       <div className="flex flex-col h-full pt-2">
-        {(chats.initalized ? chats.results : pageProps.chats.results).map((chat) => {
+        {chats.results && chats.results.map((chat) => {
           return <ChatItem
             chatText={chat.uuid}
             onSelected={() => {

@@ -13,8 +13,15 @@ import "./index.css"
 
 async function render(pageContext) {
   const { Page, pageProps } = pageContext
-  // const store = getStore()
-  const store = getStore()
+  let store = getStore()
+  let PRELOADED_STATE = store.getState()
+  
+  console.log("BEFORE pageContext", pageContext.INJECT_REDUX_STATE)
+  
+  if (pageContext.INJECT_REDUX_STATE) {
+    store = getStore(pageContext.INJECT_REDUX_STATE)
+    PRELOADED_STATE = pageContext.INJECT_REDUX_STATE;
+  }
 
   // This render() hook only supports SSR, see https://vike.dev/render-modes for how to modify render() to support SPA
   if (!Page) throw new Error('My render() hook expects pageContext.Page to be defined')
@@ -44,8 +51,9 @@ async function render(pageContext) {
         <div id="react-root">${dangerouslySkipEscape(pageHtml)}</div>
       </body>
     </html>`
-
-  const PRELOADED_STATE = store.getState()
+  
+  PRELOADED_STATE = store.getState();
+    
   return {
     documentHtml,
     pageContext: {
