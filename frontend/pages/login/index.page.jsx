@@ -18,8 +18,8 @@ async function onBeforeRender(pageContext) {
 function Page(pageProps) {
   
   const [loginData, setLoginData] = useState({
-    username: "",
-    password: "",
+    username: "testUser1",
+    password: "Test123!",
     loading: false
   })
   
@@ -65,7 +65,7 @@ function Page(pageProps) {
               ...loginData,
               username: e.target.value
             })
-          }}/>
+          }} defaultValue={loginData.username}/>
         </div>
         <div className="form-control">
           <label className="label">
@@ -76,7 +76,7 @@ function Page(pageProps) {
               ...loginData,
               password: e.target.value
             })
-          }}/>
+          }} defaultValue={loginData.password}/>
           <label className="label">
             <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
           </label>
