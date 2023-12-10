@@ -45,15 +45,15 @@ def get_user_data(user, request):
     chats_paginated = api.ChatsModelViewSet.emulate(request).list()
     chats = chats_paginated["results"]
     
-    message_viewset = api.MessagesModelViewSet.emulate(request)
-    messages = {chat['uuid']: message_viewset.list(chat_uuid=chat['uuid']) for chat in chats} 
+    #message_viewset = api.MessagesModelViewSet.emulate(request)
+    #messages = {chat['uuid']: message_viewset.list(chat_uuid=chat['uuid']) for chat in chats} 
 
     #message_viewset = MessagesModelViewSet()
     #message_viewset.initialize_request(request)
     
     return {
         "chats": chats_paginated,
-        "messages": messages,
+        # "messages": messages, don't load yet
         "user": {
             "profile": UserProfileSerializer(user.profile).data,
             "uuid": str(user.uuid),
