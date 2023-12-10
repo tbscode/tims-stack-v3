@@ -1,4 +1,6 @@
 // https://vike.dev/passToClient
 export default {
-  passToClient: ['PRELOADED_STATE']
+  passToClient: ['pageProps', 'urlPathname', 'PRELOADED_STATE', 'shell'],
+  hydrationCanBeAborted: true,
+  clientRouting: true
 }
