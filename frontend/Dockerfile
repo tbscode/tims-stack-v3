@@ -15,8 +15,6 @@ ENV _HOST_ANDROID $HOST_ANDROID
 WORKDIR /frontend
 COPY . .
 
-RUN apk add curl
-
 RUN npm i
 
 ENTRYPOINT ["npm", "run", "dev"]
