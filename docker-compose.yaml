@@ -49,3 +49,14 @@ services:
       - "6379:6379"
     extra_hosts:
       - "host.docker.internal:host-gateway"
+  ingress:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - backend
+      - frontend
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
