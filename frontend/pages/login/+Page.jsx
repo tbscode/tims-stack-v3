@@ -38,7 +38,6 @@ function Page(pageProps) {
         "Content-Type": "application/json",
       },
       method: "POST",
-      credentials: "include",
       body: JSON.stringify({
         username: loginData.username,
         password: loginData.password,

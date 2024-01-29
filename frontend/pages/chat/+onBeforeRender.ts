@@ -1,19 +1,15 @@
 export default onBeforeRender;
 import { render, redirect } from "vike/abort";
+import { STATIC_EXPORT, INTERNAL_BACKEND_ROUTE } from "../../renderer/constants";
 
 async function onBeforeRender(pageContext) {
-  /*
-     If xcsrfToken or cookie is not set, we might be rendering SSG mode
-      if(!(pageContext.xcsrfToken && pageContext.requestHeaders.cookie))
-          return {pageContext: {shell: 'dashboard', pageProps: {}}}
-        */
 
   if (!pageContext.sessionId) {
     // no sessionId means unauthenticated!
     throw render("/login/");
   }
   // Still the sessionId could be expired, test by fetching user_data
-  const res = await fetch("http://host.docker.internal:8000/api/user_data", {
+  const res = await fetch(INTERNAL_BACKEND_ROUTE, {
     headers: {
       cookie: pageContext.requestHeaders.cookie,
       "X-CSRFToken": pageContext.xcsrfToken,
