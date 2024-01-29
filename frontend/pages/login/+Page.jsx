@@ -57,6 +57,11 @@ function Page(pageProps) {
           });
 
           dispatch({
+            type: "initTmpMessages",
+            payload: data.chats.results,
+          });
+
+          dispatch({
             type: "initUser",
             payload: data.user,
           });
