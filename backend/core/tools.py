@@ -1,10 +1,11 @@
-from core.models import User, Message, Chat
 import json
 from django.conf import settings
 from random import randint
 from itertools import combinations
-from .random_init import MESSAGES
 import random
+from core.models.user import User
+from chat.models import Chat, Message
+from core.random_init import MESSAGES
 
 def base_admin_exists():
     return User.objects.filter(username=settings.BASE_ADMIN_USERNAME).exists()
@@ -60,7 +61,7 @@ def get_or_create_test_users_and_chats():
         u1 = users[uid1]
         u2 = users[uid2]
         example_chat = Chat.get_or_create_chat(u1, u2)
-        if(example_chat.messages.all().count() == 0):
+        if(example_chat.get_messages().count() == 0):
             amnt_messages = randint(5, 15)
             for i in range(amnt_messages):
                 sender = ([u1, u2])[randint(0, 1)]
@@ -75,7 +76,6 @@ def get_or_create_test_users_and_chats():
                     recipient=receiver,
                     text=text
                 )
-                example_chat.messages.add(message)
                 example_chat.save()
         
         

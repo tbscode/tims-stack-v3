@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'core',
+    'chat',
     'ddrr',
     'django_prometheus'
 ]
@@ -58,7 +59,7 @@ OPENAI_KEY = os.environ.get(
     "OPENAI_KEY", "")
 
 
-CSRF_TRUSTED_ORIGINS = ["https://t1m.me"]
+CSRF_TRUSTED_ORIGINS = ["https://t1m.me", "http://host.docker.internal:8000"]
 if os.environ.get("ROOT_HOST", "") != "":
     CSRF_TRUSTED_ORIGINS.append("https://*." + os.environ.get("ROOT_HOST", ""))
     CSRF_TRUSTED_ORIGINS.append("https://" + os.environ.get("ROOT_HOST", ""))

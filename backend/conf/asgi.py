@@ -21,7 +21,7 @@ if settings.USE_NEXTJS_PROXY_ROUTES:
 
 
 def get_urls_patterns():
-    from core.consumer import CoreConsumer
+    from chat.consumers.core import CoreConsumer
     websocket_routers.insert(
         0, path("_next/webpack-hmr", NextJSProxyWebsocketConsumer.as_asgi()))
 
