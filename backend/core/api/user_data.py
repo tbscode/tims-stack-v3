@@ -14,7 +14,7 @@ from django.contrib.auth import authenticate, login
 from channels.layers import get_channel_layer
 from asgiref.sync import sync_to_async, async_to_sync
 from core.models.profile import UserProfileSerializer
-from core import api
+from chat.api.chats import ChatsModelViewSet
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -23,7 +23,7 @@ def get_user_data(user, request):
     """
     All the relevant user data for one user 
     """
-    chats_paginated = api.ChatsModelViewSet.emulate(request).list()
+    chats_paginated = ChatsModelViewSet.emulate(request).list()
     
     return {
         "chats": chats_paginated,

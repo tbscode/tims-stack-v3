@@ -23,4 +23,5 @@ urlpatterns = [
 
 urlpatterns += [
     path("", include("core.urls")),
+    path("", include("chat.urls")),
 ]
