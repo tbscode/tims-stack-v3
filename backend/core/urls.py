@@ -23,10 +23,6 @@ urlpatterns = [
     path("api/user_data", api.user_data.request_user_data),
     path("api/login", api.login.login_user),
     path("api/profile", profile_api_user),
-
-
     path("api/profiles/", profile_api_admin_list),
     path("api/profiles/<str:pk>/", profile_api_admin),
-
-    re_path(r'^(?P<path>.*)$', index),
 ]

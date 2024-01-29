@@ -32,7 +32,7 @@ class MessagesModelViewSet(UserStaffRestricedModelViewsetMixin, viewsets.ModelVi
     def filter_queryset(self, queryset):
         print("FILTERING")
         if hasattr(self, 'chat_uuid'):
-            return Chat.objects.get(uuid=self.chat_uuid).messages.all().order_by("-created")
+            return Chat.objects.get(uuid=self.chat_uuid).get_messages().order_by("-created")
         return super().filter_queryset(queryset)
     
     def list(self, request, *args, **kwargs):
@@ -86,13 +86,13 @@ class MessagesModelViewSet(UserStaffRestricedModelViewsetMixin, viewsets.ModelVi
             text=serializer.data['text']
         )
         
-        chat.messages.add(message)
         chat.save()
         
         serialized_message = self.serializer_class(message).data
         
-        callbacks.message_incoming(request.user, message)
-        callbacks.message_send(partner, message)
+        #TODO: re-integrate callbacks
+        #callbacks.message_incoming(request.user, message)
+        #callbacks.message_send(partner, message)
         
         return Response(serialized_message, status=200)
 

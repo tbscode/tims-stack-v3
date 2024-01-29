@@ -59,7 +59,11 @@ OPENAI_KEY = os.environ.get(
     "OPENAI_KEY", "")
 
 
-CSRF_TRUSTED_ORIGINS = ["https://t1m.me", "http://host.docker.internal:8000"]
+if DEBUG:
+    CSRF_TRUSTED_ORIGINS = ["https://t1m.me", "http://host.docker.internal:8000", "http://localhost:80", "http://localhost:80"]
+else:
+    CSRF_TRUSTED_ORIGINS = []
+
 if os.environ.get("ROOT_HOST", "") != "":
     CSRF_TRUSTED_ORIGINS.append("https://*." + os.environ.get("ROOT_HOST", ""))
     CSRF_TRUSTED_ORIGINS.append("https://" + os.environ.get("ROOT_HOST", ""))

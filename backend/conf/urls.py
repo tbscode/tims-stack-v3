@@ -17,11 +17,8 @@ urlpatterns = [
     path('api/schema/redoc/',
          SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     path('', include('django_prometheus.urls')),
-]
 
-
-
-urlpatterns += [
     path("", include("core.urls")),
+
     path("", include("chat.urls")),
 ]

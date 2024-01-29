@@ -15,6 +15,8 @@ from core import models
 configs = apps.get_app_configs()
 
 for app in configs:
+    if app.name != "core":
+        continue
 
     for model_name, model in app.models.items():
         try:
