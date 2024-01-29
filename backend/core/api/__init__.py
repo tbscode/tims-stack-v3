@@ -4,3 +4,5 @@ from .login import login_user
 from .profile import UpdateProfileViewset
 from .chats import ChatsModelViewSet
 from .messages import MessagesModelViewSet
+
+__all__ = []

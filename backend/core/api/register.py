@@ -11,7 +11,7 @@ from rest_framework import status
 from rest_framework.serializers import EmailField, ValidationError
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from django.contrib.auth import authenticate, login
-from core.models import User
+from core.models.user import User
 
 
 @dataclass
