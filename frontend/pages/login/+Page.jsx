@@ -21,8 +21,6 @@ function Page(pageProps) {
   const user = useSelector((state) => state.user);
   const chats = useSelector((state) => state.chats);
 
-  console.log("user", user, chats);
-
   const [loginData, setLoginData] = useState({
     username: "testUser1",
     password: "Test123!",
@@ -34,7 +32,7 @@ function Page(pageProps) {
       ...loginData,
       loading: true,
     });
-    fetch("http://localhost:8000/api/login", {
+    fetch("/api/login", {
       headers: {
         "X-CSRFToken": pageProps.xcsrfToken,
         "Content-Type": "application/json",
@@ -49,7 +47,6 @@ function Page(pageProps) {
       if (res.status === 200) {
         res.json().then((data) => {
           // sucessfull login is expected to return `user_data`
-          console.log("GOT user_data from login", data);
 
           dispatch({
             type: "initChats",

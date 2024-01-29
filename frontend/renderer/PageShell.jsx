@@ -9,8 +9,8 @@ import { childrenPropType } from "./PropTypeValues";
 export { PageShell };
 
 const links = [
-  { route: "/", label: "Home" },
-  { route: "/app", label: "Dashboard" },
+  { route: "/", label: "Home", id: 0 },
+  { route: "/app", label: "Dashboard", id: 1 },
 ];
 
 PageShell.propTypes = {
@@ -18,7 +18,6 @@ PageShell.propTypes = {
   children: childrenPropType,
 };
 function PageShell({ pageContext, children, shell = "default" }) {
-  console.log("PAGE SHELL", shell);
   if (shell === "default") {
     return (
       <React.StrictMode>
@@ -70,10 +69,10 @@ function BaseLayout({ children }) {
           <div className="flex-none hidden lg:block">
             <ul className="menu menu-horizontal">
               {/* Navbar menu content here */}
-              {links.map(({ route, label }) => {
+              {links.map(({ route, label, id }) => {
                 return (
                   <li>
-                    <a href={route}>{label}</a>
+                    <a href={route} key={id}>{label}</a>
                   </li>
                 );
               })}

@@ -14,8 +14,6 @@ async function render(pageContext) {
   let store = getStore()
   let PRELOADED_STATE = store.getState()
   
-  console.log("BEFORE pageContext", pageContext.INJECT_REDUX_STATE)
-  
   if (pageContext.INJECT_REDUX_STATE) {
     store = getStore(pageContext.INJECT_REDUX_STATE)
     PRELOADED_STATE = pageContext.INJECT_REDUX_STATE;

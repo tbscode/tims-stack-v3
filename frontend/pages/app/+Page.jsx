@@ -58,10 +58,7 @@ function Page(pageProps) {
     });
   };
 
-  console.log("selectedChatMessages", selectedChatMessages, chats, user);
-
   useEffect(() => {
-    console.log("selectedChat", selectedChat);
     if (selectedChatId) fetchMessagesForChat(selectedChatId)(dispatch);
   }, [selectedChat]);
 
