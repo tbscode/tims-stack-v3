@@ -36,14 +36,7 @@ services:
       - "3000:3000"
       - "24678:24678"
     volumes:
-      - ./frontend/package.json:/frontend/package.json
-      - ./frontend/package-lock.json:/frontend/package-lock.json
-      - ./frontend/pages:/frontend/pages
-      - ./frontend/renderer:/frontend/renderer
-      - ./frontend/server:/frontend/server
-      - ./frontend/atoms:/frontend/atoms
-      - ./frontend/node_modules:/frontend/node_modules
-      - ./frontend/vite.config.js:/frontend/vite.config.js
+      - ./frontend/:/frontend/
     entrypoint: sh -c "npm install && npm run dev"
     environment:
       ROOT_URL: 'http://localhost'
