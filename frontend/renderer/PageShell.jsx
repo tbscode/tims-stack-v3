@@ -71,8 +71,8 @@ function BaseLayout({ children }) {
               {/* Navbar menu content here */}
               {links.map(({ route, label, id }) => {
                 return (
-                  <li>
-                    <a href={route} key={id}>{label}</a>
+                  <li key={id}>
+                    <a href={route}>{label}</a>
                   </li>
                 );
               })}
