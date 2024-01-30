@@ -1,17 +1,18 @@
 export default render
-
+import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { PageShell } from './PageShell'
 import { getStore } from './store/store'
+import { useState, useEffect } from 'react'
 import { Provider } from 'react-redux'
 import WebsocketBridge from '../atoms/websocket-bridge'
+import { number } from "prop-types";
 import "./index.css"
 
 let root
 let globalStore = null
 async function render(pageContext) {
   const { Page, pageProps } = pageContext
- 
   
   let store = globalStore
   if(!store){
@@ -23,10 +24,8 @@ async function render(pageContext) {
   }
   let state = store.getState()
 
-  console.log("CLIENT RENDER", pageContext.PRELOADED_STATE, store, globalStore)
-
   const page = (
-    <PageShell pageContext={pageContext} shell={pageContext.shell || "default"}>
+    <PageShell pageContext={pageContext}>
         <Provider store={store}>
           <WebsocketBridge />
           <Page {...pageProps} />
@@ -45,14 +44,6 @@ async function render(pageContext) {
   //document.title = getPageTitle(pageContext)
 }
 
-function onHydrationEnd() {
-  console.log('Hydration finished; page is now interactive.')
-}
-function onPageTransitionStart() {
-  console.log('Page transition start')
-  document.querySelector('body').classList.add('page-is-transitioning')
-}
-function onPageTransitionEnd() {
-  console.log('Page transition end')
-  document.querySelector('body').classList.remove('page-is-transitioning')
+export function onHydrationEnd(pageContext) {
+  console.log('Hydration finished; page is now interactive.', window.innerWidth, pageContext)
 }

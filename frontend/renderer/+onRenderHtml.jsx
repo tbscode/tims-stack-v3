@@ -24,7 +24,7 @@ async function onRenderHtml(pageContext) {
   if (!Page) throw new Error('My render() hook expects pageContext.Page to be defined')
 
   const pageHtml = ReactDOMServer.renderToString(
-    <PageShell pageContext={pageContext} shell={pageContext.shell || "default"}>
+    <PageShell pageContext={pageContext}>
       <Provider store={store}>
         <Page {...pageProps} />
       </Provider>

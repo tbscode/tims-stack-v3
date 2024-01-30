@@ -8,7 +8,7 @@ export default {
   plugins: [
     react(),
     vike({
-      prerender: true,
+      partial: true,
       trailingSlash: true,
     }),
     tailwindcss(),
