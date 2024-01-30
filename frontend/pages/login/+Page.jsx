@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import { navigate } from "vike/client/router";
 import { useDispatch, useSelector } from "react-redux";
 
-
 export default Page;
-
 
 function Page(pageProps) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const chats = useSelector((state) => state.chats);
+  console.log(user, chats);
 
   const [loginData, setLoginData] = useState({
     username: "testUser1",

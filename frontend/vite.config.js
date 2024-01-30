@@ -5,15 +5,7 @@ import rollupNodePolyFill from "rollup-plugin-node-polyfills";
 import { builtinModules } from "module";
 
 export default {
-  plugins: [
-    react(),
-    vike({
-      partial: true,
-      clientRouting: true,
-      trailingSlash: true,
-    }),
-    tailwindcss(),
-  ],
+  plugins: [react(), vike({}), tailwindcss()],
   alias: {
     resolve: {
       "./runtimeConfig": "./runtimeConfig.browser",

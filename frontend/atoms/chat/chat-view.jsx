@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import Markdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { CopyBlock, dracula } from "react-code-blocks";
+import atomdark from "react-syntax-highlighter/dist/cjs/styles/prism/atom-dark";
 
 import remarkGfm from "remark-gfm";
 
@@ -27,16 +28,6 @@ function ChatNav({ chat, chatSelected }) {
     </div>
   );
 }
-
-const markdown = `## How about some code?
-\`\`\`python
-var React = require('react');
-var Markdown = require('react-markdown');
-React.render(
-  <Markdown source="# Your markdown here" />,
-  document.getElementById('content')
-);
-\`\`\``;
 
 function stringify(obj) {
   let cache = [];
@@ -64,7 +55,7 @@ function ChatMessage({ message, isSelf }) {
         }`}
       >
         <div className="flex flex-col max-w-full">
-          <div className="w-fit bg-base-300 p-1 px-2 rounded-xl ">
+          <div className="w-fit bg-base-300 p-1 px-2 rounded-xl">
             <Markdown
               remarkPlugins={[remarkGfm]}
               components={{
@@ -74,8 +65,12 @@ function ChatMessage({ message, isSelf }) {
                 code(props) {
                   const { children, className, node, ...rest } = props;
                   const match = /language-(\w+)/.exec(className || "");
+                  console.log("CODE", match);
                   return (
-                    <SyntaxHighlighter language={match ? match[0] : null}>
+                    <SyntaxHighlighter
+                      language={match ? match[1] : null}
+                      style={atomdark}
+                    >
                       {children}
                     </SyntaxHighlighter>
                   );
@@ -84,6 +79,12 @@ function ChatMessage({ message, isSelf }) {
             >
               {message.text}
             </Markdown>
+            <div className="flex flex-row justify-end text-xs">
+              {new Date(message.created)
+                .toISOString()
+                .slice(0, 19)
+                .replace("T", " ")}
+            </div>
           </div>
         </div>
       </div>
@@ -99,13 +100,23 @@ function ChatInput({}) {
         placeholder="Send a message"
       ></textarea>
       <div className="flex flex-row content-center items-center justify-end">
-        HE
+        <button className="btn btn-lg bg-base-100">Large</button>
       </div>
     </div>
   );
 }
 
 function ChatBase({ chat, messages, user, chatSelected }) {
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   return (
     <>
       <div className="w-full overflow-y-scroll">
@@ -118,6 +129,7 @@ function ChatBase({ chat, messages, user, chatSelected }) {
             />
           );
         })}
+        <div ref={messagesEndRef} />
       </div>
       <ChatInput />
     </>
