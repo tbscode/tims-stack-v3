@@ -5,30 +5,31 @@ import {
   ChatMessage,
   MessageSkelleton,
   ChatItemSkelleton,
-  ChatList,
-} from "../../atoms/chat";
-import { ChatSplit } from "../../atoms/chat-split";
-import { fetchMessagesForChat } from "../../renderer/store/reducers/messagesReducer";
-import Cookies from "js-cookie";
+} from "../../../atoms/chat";
+import { ChatSplit } from "../../../atoms/chat-split";
+import { fetchMessagesForChat } from "../../../renderer/store/reducers/messagesReducer";
+import Cookies from 'js-cookie'
+
 
 export default Page;
 
 const sampleSide = (arr) => arr[Math.floor(Math.random() * arr.length)];
 const randomMessageAmount = Math.floor(Math.random() * 10) + 1;
 
-async function requestAiResponse() {
+async function requestAiResponse(){
+
   const aborter = new AbortController();
 
-  const response = await fetch("/api/prompt/", {
-    signal: aborter.signal,
-    headers: {
-      "X-CSRFToken": Cookies.get("csrftoken"),
-      "Content-Type": "application/json",
-    },
-    method: "POST",
-    body: JSON.stringify({
-      prompt: "How are you doing? Please write me a long poem.",
-    }),
+  const response = await fetch('/api/prompt/',{
+      signal: aborter.signal,
+      headers: {
+        "X-CSRFToken": Cookies.get('csrftoken'),
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({
+        "prompt": "How are you doing? Please write me a long poem." 
+      })
   });
   const reader = response.body.getReader();
   while (true) {
@@ -40,6 +41,7 @@ async function requestAiResponse() {
     console.log("Chunk", value);
     // Otherwise do something here to process current chunk
   }
+
 }
 
 function Page(pageProps) {
@@ -47,14 +49,14 @@ function Page(pageProps) {
   const selectedChatId = useSelector((state) => state.chats.selectedChatId);
   const chats = useSelector((state) => state.chats);
   const messages = useSelector((state) => state.messages);
-  const selectedChat = chats?.results
-    ? chats.results.find((chat) => chat.uuid === selectedChatId)
-    : null;
+  const selectedChat = chats?.results ? chats.results.find(
+    (chat) => chat.uuid === selectedChatId
+  ): null;
   const messageInputRef = React.createRef();
   const user = useSelector((state) => state.user);
   const tmpMessages = useSelector((state) => state.tmpMessages);
-
-  console.log("CHATS & MESSAGES", chats, messages);
+  
+  console.log("CHATS & MESSAGES", chats, messages)
 
   const selectedChatMessages =
     selectedChatId in messages ? messages[selectedChatId] : null;
@@ -63,5 +65,5 @@ function Page(pageProps) {
     if (selectedChatId) fetchMessagesForChat(selectedChatId)(dispatch);
   }, [selectedChat]);
 
-  return <ChatList chats={chats}></ChatList>;
+  return <></>
 }
