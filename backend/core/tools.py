@@ -25,7 +25,7 @@ first_names = ["John", "Emma", "Jake", "Sophia", "Alexander", "Olivia", "George"
 last_names = ["Smith", "Johnson", "Wilson", "Brown", "Jones", "Davis", "Miller", "Thomas", "Garcia", "Rodriguez", "Martin", "Thompson", "Taylor", "Harris", "Jackson", "White", "Young", "Turner", "Perez", "Morris"]
 
 test_users = [{"first_name": f, "second_name": l} for f, l in zip(first_names, last_names)]
-test_users = test_users[:10]
+test_users = test_users[:5]
 
 base_user_name = "testUser"
 
@@ -76,7 +76,5 @@ def get_or_create_test_users_and_chats():
                     recipient=receiver,
                     text=text
                 )
-                example_chat.save()
-        
         
 

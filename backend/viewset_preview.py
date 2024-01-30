@@ -17,7 +17,6 @@ class UserProfile(models.Model):
     changes = models.ManyToManyField("ChangeHistory", related_name="user_profile_changes", null=True, blank=True)
     
     def save(self, *args, **kwargs):
-        print("TBS SAVE CALLED", flush=True)
         changed = self.tracker.changed()
         changed_data = {key: getattr(self, key) for key in changed}
         if changed:

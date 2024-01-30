@@ -13,6 +13,8 @@ class MessageTypes(Enum):
     unconfirmed_match_added = "unconfirmed_match_added" # A new match but hasn't been viewed yet
     block_incoming_call = "block_incoming_call"
     new_incoming_call = "new_incoming_call"
+    new_message = "new_message"
+    new_partial_message = "new_partial_message"
     
 def send_message(user_id, type: MessageTypes, data):
     channel_layer = get_channel_layer()
@@ -129,3 +131,19 @@ class InNewIncomingCall(MessageBase):
                 "userId": self.sender_id
             }
         }
+
+@dataclass
+class InPartialMessage(MessageBase):
+    sender_id: str
+    tmp_uuid: str
+    sender: str
+    created: str
+    read: bool
+    type: str = MessageTypes.new_partial_message.value
+    
+    def build_redux_action(self):
+        return {
+            "action": "partialMessage", 
+            "payload": self.dict()
+        }
+        
