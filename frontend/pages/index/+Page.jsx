@@ -13,7 +13,7 @@ function Page(pageProps) {
           <button onClick={() => {}} className="btn btn-primary">
             Click
           </button>
-          <a href="/app" className="btn btn-primary">
+          <a href="/chat" className="btn btn-primary">
             Get Started
           </a>
         </div>

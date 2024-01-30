@@ -1,5 +1,39 @@
 import React from "react";
 
+export function ChatList({ chats }) {
+  console.log("CHATS", chats.results);
+  return (
+    <ul className="menu bg-base-200 w-full rounded-box gap-2">
+      {chats?.results?.map((chat, i) => {
+        console.log("CHAT", chat);
+        return <ChatListItem key={chat.uuid} chat={chat} />;
+      })}
+    </ul>
+  );
+}
+
+export function ChatListItem({ chat }) {
+  return (
+    <li key={chat?.uuid} className="bg-base-300">
+      <a href={`/chat/${chat.uuid}`}>
+        <div className="flex flex-row justify-center content-center items-center">
+          <div className="avatar">
+            <div className="w-10 rounded-xl">
+              <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+            </div>
+          </div>
+          <div className="flex flex-col px-4">
+            <h1 className="text-xl">
+              {chat.partner.first_name} {chat.partner.second_name}
+            </h1>
+            <h3>{chat.uuid}</h3>
+          </div>
+        </div>
+      </a>
+    </li>
+  );
+}
+
 export function ChatItem({ partnerImage, chatText, onSelected, uuid }) {
   return (
     <button
