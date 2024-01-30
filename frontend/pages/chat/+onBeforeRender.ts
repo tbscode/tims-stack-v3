@@ -28,7 +28,6 @@ async function onBeforeRender(pageContext) {
   return {
     pageContext: {
       xcsrfToken: pageContext.xcsrfToken,
-      shell: "dashboard",
       INJECT_REDUX_STATE: {
         chats: data.chats,
         user: data.user,

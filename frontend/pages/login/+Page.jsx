@@ -3,19 +3,8 @@ import { navigate } from "vike/client/router";
 import { useDispatch, useSelector } from "react-redux";
 
 
-export { Page };
-export { onBeforeRender };
+export default Page;
 
-async function onBeforeRender(pageContext) {
-  return {
-    pageContext: {
-      shell: "default",
-      pageProps: {
-        xcsrfToken: pageContext.xcsrfToken,
-      },
-    },
-  };
-}
 
 function Page(pageProps) {
   const dispatch = useDispatch();
