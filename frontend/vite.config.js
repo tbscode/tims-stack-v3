@@ -9,6 +9,7 @@ export default {
     react(),
     vike({
       prerender: true,
+      trailingSlash: true,
     }),
     tailwindcss(),
   ],
