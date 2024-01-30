@@ -1,14 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  ChatItem,
-  ChatMessage,
-  MessageSkelleton,
-  ChatItemSkelleton,
-  ChatList,
-  ChatBox,
-  ChatView,
-} from "../../../atoms/chat";
+import { ChatView } from "../../../atoms/chat/chat-view";
+import { ChatList } from "../../../atoms/chat/chat-list";
+import { ChatBox } from "../../../atoms/chat/base";
 import { ChatSplit } from "../../../atoms/chat-split";
 import Cookies from "js-cookie";
 
@@ -21,7 +15,13 @@ function Page(pageProps) {
   const user = useSelector((state) => state.user);
   const chat = useSelector((state) => state.chat);
 
-  console.log("CHATS & MESSAGES", chat);
+  console.log(
+    "SELECTED CHAT & CHATS & MESSAGES & USER",
+    chat,
+    chats,
+    messages,
+    user
+  );
 
   return (
     <ChatBox>

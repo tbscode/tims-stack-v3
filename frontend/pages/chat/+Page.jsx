@@ -1,14 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  ChatItem,
-  ChatMessage,
-  MessageSkelleton,
-  ChatItemSkelleton,
-  ChatBox,
-  ChatList,
-} from "../../atoms/chat";
-import { ChatSplit } from "../../atoms/chat-split";
+import { ChatList } from "../../atoms/chat/chat-list";
+import { ChatBox } from "../../atoms/chat/base";
 import Cookies from "js-cookie";
 
 export default Page;
