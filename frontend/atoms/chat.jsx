@@ -1,24 +1,39 @@
 import React from "react";
 
-export function ChatList({ chats, chatSelected }) {
-  console.log("CHATS", chats.results);
+export function ChatList({ chat, chats, chatSelected }) {
   return (
     <ul
-      className={`menu bg-base-200 w-full sm:max-w-md min-w-md rounded-box gap-2 ${
-        chatSelected ? "hidden sm:block" : "hidden"
+      className={`menu bg-base-200 w-full sm:max-w-md min-w-md rounded-box ${
+        chatSelected ? "hidden lg:block" : ""
       }`}
     >
-      {chats?.results?.map((chat, i) => {
-        console.log("CHAT", chat);
-        return <ChatListItem key={chat.uuid} chat={chat} />;
+      {chats?.results?.map((_chat, i) => {
+        return (
+          <ChatListItem
+            key={_chat.uuid}
+            chat={_chat}
+            isSelected={chat.uuid == _chat.uuid}
+          />
+        );
       })}
     </ul>
   );
 }
 
-export function ChatListItem({ chat }) {
+export function ChatBox({ children }) {
   return (
-    <li key={chat?.uuid} className="bg-base-300">
+    <div className="flex flex-col h-screen w-screen p-1 md:p-2 xl:p-8 2xl:p-16 gap-1">
+      <div className="flex flex-row w-full h-full">{children}</div>
+    </div>
+  );
+}
+
+export function ChatListItem({ chat, isSelected }) {
+  return (
+    <li
+      key={chat?.uuid}
+      className={`bg-base-300 rounded-xl mb-2 ${isSelected ? "bg-error" : ""}`}
+    >
       <a href={`/chat/${chat.uuid}`}>
         <div className="flex flex-row justify-center content-center items-center">
           <div className="avatar">
@@ -38,14 +53,29 @@ export function ChatListItem({ chat }) {
   );
 }
 
-export function ChatView({ messages, user, chatSelected }) {
+export function ChatView({ chat, messages, user, chatSelected }) {
+  //console.log("MESSAGES", chat, messages, user);
   return (
     <div
-      className={`w-full h-full bg-error ${
+      className={`w-full h-full bg-base-100 rounded-xl p-1 ${
         chatSelected ? "" : "hidden md:block"
       }`}
     >
-      WASASDASSD
+      <div className="flex flex-row bg-info rounded-xl justify-left items-center p-2 md:p-3">
+        <kbd
+          className={`kbd h-10 w-10 xl:h-12 xl:w-12 ${
+            chatSelected ? "lg:hidden" : ""
+          }`}
+        >
+          ◀︎
+        </kbd>
+        <div className="flex flex-col px-4">
+          <h1 className="text-xl">
+            {chat.partner.first_name} {chat.partner.second_name}
+          </h1>
+          <h3>{chat.uuid}</h3>
+        </div>
+      </div>
     </div>
   );
 }

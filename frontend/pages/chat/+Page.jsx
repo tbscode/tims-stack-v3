@@ -5,10 +5,10 @@ import {
   ChatMessage,
   MessageSkelleton,
   ChatItemSkelleton,
+  ChatBox,
   ChatList,
 } from "../../atoms/chat";
 import { ChatSplit } from "../../atoms/chat-split";
-import { fetchMessagesForChat } from "../../renderer/store/reducers/messagesReducer";
 import Cookies from "js-cookie";
 
 export default Page;
@@ -44,24 +44,13 @@ async function requestAiResponse() {
 
 function Page(pageProps) {
   const dispatch = useDispatch();
-  const selectedChatId = useSelector((state) => state.chats.selectedChatId);
   const chats = useSelector((state) => state.chats);
-  const messages = useSelector((state) => state.messages);
-  const selectedChat = chats?.results
-    ? chats.results.find((chat) => chat.uuid === selectedChatId)
-    : null;
-  const messageInputRef = React.createRef();
-  const user = useSelector((state) => state.user);
-  const tmpMessages = useSelector((state) => state.tmpMessages);
 
-  console.log("CHATS & MESSAGES", chats, messages);
+  console.log("CHATS ONLY", chats);
 
-  const selectedChatMessages =
-    selectedChatId in messages ? messages[selectedChatId] : null;
-
-  useEffect(() => {
-    if (selectedChatId) fetchMessagesForChat(selectedChatId)(dispatch);
-  }, [selectedChat]);
-
-  return <ChatList chats={chats} chatSelected={false}></ChatList>;
+  return (
+    <ChatBox>
+      <ChatList chats={chats} chatSelected={false}></ChatList>
+    </ChatBox>
+  );
 }

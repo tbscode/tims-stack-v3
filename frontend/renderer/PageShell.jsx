@@ -18,11 +18,11 @@ PageShell.propTypes = {
   children: childrenPropType,
 };
 function PageShell({ pageContext, children }) {
-  
-
-  return <React.StrictMode>
-    <PageContextProvider pageContext={pageContext}>
-      {children}
-    </PageContextProvider>
-  </React.StrictMode>
+  return (
+    <React.StrictMode>
+      <PageContextProvider pageContext={pageContext}>
+        {children}
+      </PageContextProvider>
+    </React.StrictMode>
+  );
 }

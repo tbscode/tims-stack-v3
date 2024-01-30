@@ -18,15 +18,3 @@ export function messagesReducer(
       return state;
   }
 }
-
-export function fetchMessagesForChat(chatId) {
-  return async (dispatch) => {
-    const res = await fetch(`/api/messages/${chatId}/`);
-    const data = await res.json();
-
-    dispatch({
-      type: "initChatMessages",
-      payload: { chat: chatId, data: data },
-    });
-  };
-}
