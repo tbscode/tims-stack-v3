@@ -3,7 +3,7 @@ import React from "react";
 export function ChatList({ chats }) {
   console.log("CHATS", chats.results);
   return (
-    <ul className="menu bg-base-200 w-full rounded-box gap-2">
+    <ul className="menu bg-base-200 sm:w-full max-w-md rounded-box gap-2">
       {chats?.results?.map((chat, i) => {
         console.log("CHAT", chat);
         return <ChatListItem key={chat.uuid} chat={chat} />;
@@ -32,6 +32,10 @@ export function ChatListItem({ chat }) {
       </a>
     </li>
   );
+}
+
+export function ChatView({ messages, user }) {
+  return <div className="w-full h-full bg-error"></div>;
 }
 
 export function ChatItem({ partnerImage, chatText, onSelected, uuid }) {

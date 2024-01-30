@@ -21,7 +21,7 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: ./Dockerfile
+      dockerfile: ./prod.dockerfile
     environment:
       ROOT_URL: 'http://localhost'
       WEBSOCKET_PROTOCOL: 'ws://'

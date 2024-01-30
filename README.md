@@ -16,4 +16,9 @@ docker-compose build
 docker-compose up
 ```
 
-Same for any service just `cd` into the service ( e.g.: `./backend`, `./frontend` ).
+### Prod build
+
+```
+docker-compose -f docker-compose.pro.yaml build
+docker-compose -f docker-compose.pro.yaml up
+```
