@@ -14,36 +14,7 @@ import Cookies from "js-cookie";
 
 export default Page;
 
-const sampleSide = (arr) => arr[Math.floor(Math.random() * arr.length)];
-const randomMessageAmount = Math.floor(Math.random() * 10) + 1;
-
-async function requestAiResponse() {
-  const aborter = new AbortController();
-
-  const response = await fetch("/api/prompt/", {
-    signal: aborter.signal,
-    headers: {
-      "X-CSRFToken": Cookies.get("csrftoken"),
-      "Content-Type": "application/json",
-    },
-    method: "POST",
-    body: JSON.stringify({
-      prompt: "How are you doing? Please write me a long poem.",
-    }),
-  });
-  const reader = response.body.getReader();
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) {
-      // Do something with last chunk of data then exit reader
-      return;
-    }
-    console.log("Chunk", value);
-    // Otherwise do something here to process current chunk
-  }
-}
-
-function Page(pageProps) {
+function Page(pageProps, PRELOADED_STATE) {
   const dispatch = useDispatch();
   const selectedChatId = useSelector((state) => state.chats.selectedChatId);
   const chats = useSelector((state) => state.chats);
@@ -56,6 +27,7 @@ function Page(pageProps) {
   const tmpMessages = useSelector((state) => state.tmpMessages);
 
   console.log("CHATS & MESSAGES", chats, messages);
+  console.log("ROUTE", pageProps, PRELOADED_STATE);
 
   const selectedChatMessages =
     selectedChatId in messages ? messages[selectedChatId] : null;
@@ -65,9 +37,13 @@ function Page(pageProps) {
   }, [selectedChat]);
 
   return (
-    <>
-      <ChatList chats={chats}></ChatList>
-      <ChatView messages={selectedChatMessages} user={user}></ChatView>
-    </>
+    <div className="flex flex-row h-screen">
+      <ChatList chats={chats} chatSelected={true}></ChatList>
+      <ChatView
+        messages={selectedChatMessages}
+        user={user}
+        chatSelected={true}
+      ></ChatView>
+    </div>
   );
 }

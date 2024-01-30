@@ -1,9 +1,13 @@
 import React from "react";
 
-export function ChatList({ chats }) {
+export function ChatList({ chats, chatSelected }) {
   console.log("CHATS", chats.results);
   return (
-    <ul className="menu bg-base-200 sm:w-full max-w-md rounded-box gap-2">
+    <ul
+      className={`menu bg-base-200 w-full sm:max-w-md min-w-md rounded-box gap-2 ${
+        chatSelected ? "hidden sm:block" : "hidden"
+      }`}
+    >
       {chats?.results?.map((chat, i) => {
         console.log("CHAT", chat);
         return <ChatListItem key={chat.uuid} chat={chat} />;
@@ -34,8 +38,16 @@ export function ChatListItem({ chat }) {
   );
 }
 
-export function ChatView({ messages, user }) {
-  return <div className="w-full h-full bg-error"></div>;
+export function ChatView({ messages, user, chatSelected }) {
+  return (
+    <div
+      className={`w-full h-full bg-error ${
+        chatSelected ? "" : "hidden md:block"
+      }`}
+    >
+      WASASDASSD
+    </div>
+  );
 }
 
 export function ChatItem({ partnerImage, chatText, onSelected, uuid }) {

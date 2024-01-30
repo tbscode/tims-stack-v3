@@ -9,6 +9,7 @@ export default {
     react(),
     vike({
       partial: true,
+      clientRouting: true,
       trailingSlash: true,
     }),
     tailwindcss(),

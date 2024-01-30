@@ -63,5 +63,5 @@ function Page(pageProps) {
     if (selectedChatId) fetchMessagesForChat(selectedChatId)(dispatch);
   }, [selectedChat]);
 
-  return <ChatList chats={chats}></ChatList>;
+  return <ChatList chats={chats} chatSelected={false}></ChatList>;
 }
