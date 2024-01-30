@@ -1,7 +1,8 @@
-export { render }
+export default onRenderHtml;
 // See https://vike.dev/data-fetching
 import ReactDOMServer from 'react-dom/server'
 
+import React from 'react';
 import { PageShell } from './PageShell'
 import { escapeInject, dangerouslySkipEscape } from 'vike/server'
 import logoUrl from './logo.svg'
@@ -9,7 +10,7 @@ import { getStore } from './store/store'
 import { Provider } from 'react-redux'
 import "./index.css"
 
-async function render(pageContext) {
+async function onRenderHtml(pageContext) {
   const { Page, pageProps } = pageContext
   let store = getStore()
   let PRELOADED_STATE = store.getState()
@@ -21,6 +22,7 @@ async function render(pageContext) {
 
   // This render() hook only supports SSR, see https://vike.dev/render-modes for how to modify render() to support SPA
   if (!Page) throw new Error('My render() hook expects pageContext.Page to be defined')
+
   const pageHtml = ReactDOMServer.renderToString(
     <PageShell pageContext={pageContext} shell={pageContext.shell || "default"}>
       <Provider store={store}>
