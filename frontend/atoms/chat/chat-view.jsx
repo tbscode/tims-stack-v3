@@ -77,7 +77,7 @@ function ChatMessage({ message, isSelf }) {
           }`}
         >
           <div
-            className={`w-fit bg-base-300 p-1 px-2 rounded-xl relative group hover:bg-secondary-content max-w-full ${
+            className={`w-fit bg-base-300 p-1 px-2 rounded-xl relative group hover:bg-secondary-content max-w-full shadow-md ${
               message.read ? "" : "border border-primary"
             }`}
           >

@@ -8,21 +8,11 @@ export function ChatListItem({ chat, isSelected }) {
   return (
     <li
       key={chat?.uuid}
-      className={`bg-base-300 border rounded-xl mb-2 ${
-        isSelected ? "bg-primary text-base-200" : ""
+      className={`bg-base-100 border rounded-xl mb-2 active:-translate-y-1 ${
+        isSelected ? "text-base-content shadow-inner border-2" : "shadow-md"
       }`}
     >
-      <button
-        onClick={(e) => {
-          console.log("CLICKED", chat.uuid, isSelected);
-          if (isSelected) {
-            //already selected then de-select
-            navigate("/chat/");
-          }
-          navigate(`/chat/${chat.uuid}/`);
-          e.preventDefault();
-        }}
-      >
+      <a href={`/chat/${chat.uuid}/`}>
         <div className="flex flex-row justify-center content-center items-center">
           <div className="avatar">
             <div className="w-10 rounded-xl">
@@ -36,7 +26,7 @@ export function ChatListItem({ chat, isSelected }) {
             <h3>{chat.uuid}</h3>
           </div>
         </div>
-      </button>
+      </a>
     </li>
   );
 }
