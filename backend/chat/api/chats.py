@@ -1,7 +1,7 @@
 from rest_framework import serializers, viewsets, status
 from rest_framework import response
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
-from chat.models import Chat, ChatSerializer
+from chat.models import Chat, ChatSerializer, ChatInModelSerializer
 from chat.api.viewsets import UserStaffRestricedModelViewsetMixin, DetailedPaginationMixin
 
 class ChatsModelViewSet(viewsets.ModelViewSet, UserStaffRestricedModelViewsetMixin):

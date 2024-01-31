@@ -15,6 +15,8 @@ from channels.layers import get_channel_layer
 from asgiref.sync import sync_to_async, async_to_sync
 from core.models.profile import UserProfileSerializer
 from chat.api.chats import ChatsModelViewSet
+from chat.api.messages import MessagesModelViewSet
+from chat.models import Chat, ChatSerializer
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -42,10 +44,15 @@ def get_user_data(user, request):
 )
 @authentication_classes([SessionAuthentication])
 @permission_classes([IsAuthenticated])
-def request_user_data(request):
+def request_user_data(request, **kwargs):
+    
+    print("KWARGS", kwargs)
 
     #ud = get_user_data(request.user, request)
     #response = Response(ud, status=status.HTTP_200_OK)
+    if 'chat_uuid' in kwargs:
+        messages = MessagesModelViewSet.emulate(request).list(chat_uuid=kwargs['chat_uuid'])
+        chat = ChatSerializer(Chat.get(kwargs['chat_uuid']), context={'request': request}).data
+        return Response({**get_user_data(request.user, request), "messages": messages, "chat": chat})
     
-    #print("TBS got ud", ud)
     return Response(get_user_data(request.user, request))

@@ -5,6 +5,95 @@ Hey {first_name}, check out this amazing new project on GitHub. It's all about
 """,
 """
 I believe deploying with Kubernetes should no longer be a fringe skill. CMS’s should make it more accessible for us. Thoughts, {first_name}?
+
+```js
+function ChatInput({}) {
+  return (
+    <div className="bg-base-200 h-fit flex flex-row w-full rounded-xl mt-2 border p-2 gap-2">
+      <textarea
+        className="textarea flex flex-grow"
+        placeholder="Send a message"
+      ></textarea>
+      <div className="flex flex-row content-center items-center justify-end">
+        HE
+      </div>
+    </div>
+  );
+}
+```
+
+""",
+"""
+I believe deploying with Kubernetes should no longer be a fringe skill. CMS’s should make it more accessible for us. Thoughts, {first_name}?
+```js
+function ChatInput({}) {
+  return (
+    <div className="bg-base-200 h-fit flex flex-row w-full rounded-xl mt-2 border p-2 gap-2">
+      <textarea
+        className="textarea flex flex-grow"
+        placeholder="Send a message"
+      ></textarea>
+      <div className="flex flex-row content-center items-center justify-end">
+        HE
+      </div>
+    </div>
+  );
+}
+```
+""",
+"""
+I believe deploying with Kubernetes should no longer be a fringe skill. CMS’s should make it more accessible for us. Thoughts, {first_name}?
+```js
+function ChatInput({}) {
+  return (
+    <div className="bg-base-200 h-fit flex flex-row w-full rounded-xl mt-2 border p-2 gap-2">
+      <textarea
+        className="textarea flex flex-grow"
+        placeholder="Send a message"
+      ></textarea>
+      <div className="flex flex-row content-center items-center justify-end">
+        HE
+      </div>
+    </div>
+  );
+}
+```
+""",
+"""
+I believe deploying with Kubernetes should no longer be a fringe skill. CMS’s should make it more accessible for us. Thoughts, {first_name}?
+```js
+function ChatInput({}) {
+  return (
+    <div className="bg-base-200 h-fit flex flex-row w-full rounded-xl mt-2 border p-2 gap-2">
+      <textarea
+        className="textarea flex flex-grow"
+        placeholder="Send a message"
+      ></textarea>
+      <div className="flex flex-row content-center items-center justify-end">
+        HE
+      </div>
+    </div>
+  );
+}
+```
+""",
+"""
+I believe deploying with Kubernetes should no longer be a fringe skill. CMS’s should make it more accessible for us. Thoughts, {first_name}?
+```js
+function ChatInput({}) {
+  return (
+    <div className="bg-base-200 h-fit flex flex-row w-full rounded-xl mt-2 border p-2 gap-2">
+      <textarea
+        className="textarea flex flex-grow"
+        placeholder="Send a message"
+      ></textarea>
+      <div className="flex flex-row content-center items-center justify-end">
+        HE
+      </div>
+    </div>
+  );
+}
+```
 """,
 """
 Tailwind CSS allows us to create custom designs without leaving our HTML. Isn’t it amazing {first_name}?
@@ -14,45 +103,6 @@ Tailwind CSS allows us to create custom designs without leaving our HTML. Isn’
 """,
 """
 {first_name}, is it true that with Hyperstack we don't need a separate API? What's it got to do with Rails?
-""",
-"""
-{first_name}, my Next.js app is ready. Could you please help me deploy it on Vercel?
-""",
-"""
-Good morning {first_name}, I was wondering if we could try out Kubernetes for our next project? It seems quite useful.
-""",
-"""
-{first_name}, I really need your help with Tailwind CSS. Could you please guide me on how to get started?
-""",
-"""
-Next.js uses the concept of server-side rendering. Is that something new, {first_name}?
-""",
-"""
-Hi {second_name}, I was wondering how can we scale our application with Kubernetes? Any ideas?
-""",
-"""
-{first_name}, I think we should try Django for our next backend project. It seems to have great features.
-""",
-"""
-Best thing about Next.js is its developer experience. Real-time feedback and automatic page refreshing are game changers, wouldn’t you agree {first_name}?
-""",
-"""
-I’ve heard Tailwind CSS has low-level utility classes that let you build completely custom designs. Sounds like a game changer, doesn't it {first_name}?
-""",
-"""
-{second_name}, we should definitely consider using Kubernetes for our upcoming project. It'll make managing our infrastructure so much easier!
-""",
-"""
-Did you know, with Django, we can build a web app, backend, and APIs all in the same project? Isn't it great, {first_name}?
-""",
-"""
-Next.js is very developer friendly compared to other frameworks. What do you think, {first_name}?
-""",
-"""
-Isn't it great that we can use Tailwind CSS directly in our HTML? Takes out the hassle of dealing with separate CSS files, don't you think, {second_name}?
-""",
-"""
-{first_name}, have you tried integrating PostgreSQL with Django? It's effortless.
 """,
 """
 {first_name}, did you know that we can create static and dynamic routes in Next.js?
@@ -280,43 +330,5 @@ Hey there, {first_name}! Have you seen what they are calling the TIM-stack? It's
 """
 ### WARNING {first_name}
 Becoming a full stack dev is may result in 'losing your weekends' syndrome as you endlessly learn about ever-changing stack… 😏
-""",
-"""
-{first_name}, I command you: `go` learn some Go! Running containers without the overhead of Docker in production is awesome.
-""",
-"""
-I tell you what, {first_name}. The folks over at Docker must be feeling 'container-grief' since Kubernetes stole their thunder 😂
-""",
-"""
-{first_name}, don't listen to {second_name}. As developers, we don't 'git' jokes 😄.
-""",
-"""
-{first_name}, How objects get stored in JavaScript?
-No idea? Don't worry. its just via 'let', then fit right into 'const'.
-Alright, Im terrible at this. But hey, if things deteriorate, dont 'var'-nish the truth, ya gotme, its anotherJSjoke 😁
-""",
-"""
-Hey {first_name}! Consider a new rule for docker world, just as with Chekhov's Gun: a Dockerfile *must* make use of its base image, otherwise it's Kube-ckov’s unnecessary weight 😉😂
-""",
-"""
-Everyone set an autonomous timer 😄 Because I'm about to drop a deep dive tutorial on hypervisors...
-""",
-"""
-How does {first_name} create a crypto protocol on the Docker network? It’s a secret tunnel, duh! 🕵️😂
-""",
-"""
-{first_name}, remember, `dry` run on kubernetes is like `second_name` without admin permissions on prod. Total relief! 😁
-""",
-"""
-Guess what, {first_name}. React is like cooking! Too much spice and the app becomes unpalatable to users 😂
-""",
-"""
-{first_name}, ever imagine an Unikernal image in containers. "sleepless MicroVMs.' 😀 – Your future self from the serverless environment.
-""",
-"""
-{first_name}! See this! ![HyperFunction Globe](www.unsplash.com/videoHyperFunctionExpress). It’s what the stream analytics biz cards look like!
-""",
-"""
-{first_name}, Your selfie is up at the Chaos Engine tech-night dinner listing! 🕹️😄
 """,
 ]

@@ -69,7 +69,10 @@ def get_or_create_test_users_and_chats():
                 text = random.choice(MESSAGES)
                 names_sender = [sender.profile.first_name , sender.profile.second_name]
                 names_receiver = [receiver.profile.first_name , receiver.profile.second_name]
-                text = text.format(first_name=names_sender[randint(0,1)], second_name=names_receiver[randint(0,1)])
+                try:
+                    text = text.format(first_name=names_sender[randint(0,1)], second_name=names_receiver[randint(0,1)])
+                except:
+                    pass
                 message = Message.objects.create(
                     chat=example_chat,
                     sender=sender,

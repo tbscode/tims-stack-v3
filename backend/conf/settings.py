@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'core',
     'chat',
-    'ddrr',
+    #'ddrr',
     'django_prometheus'
 ]
 MIDDLEWARE = [

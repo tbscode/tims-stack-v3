@@ -19,6 +19,10 @@ class Chat(models.Model):
     
     def is_participant(self, user):
         return self.u1 == user or self.u2 == user
+    
+    @classmethod
+    def get(cls, uuid):
+        return cls.objects.filter(uuid=uuid).first()
 
     @classmethod
     def get_chats(cls, user):
@@ -85,6 +89,9 @@ class ChatSerializer(serializers.ModelSerializer):
             profile['uuid'] = str(partner.uuid)
             representation['partner'] = profile
             representation['partner']['username'] = username
+
+            representation['unread_count'] = instance.get_unread_count(user)
+            representation['newest_message'] = MessageSerializer(instance.get_newest_message()).data
             del representation['u1']
             del representation['u2']
         else:
