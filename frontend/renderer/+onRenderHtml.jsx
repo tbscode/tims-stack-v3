@@ -44,8 +44,13 @@ async function onRenderHtml(pageContext) {
   const desc =
     (documentProps && documentProps.description) || "App using Vite + Vike";
 
+  console.log("STATE STORE", store.getState(), pageContext.INJECT_REDUX_STATE);
+  const theme = store.getState().localSettings.theme
+    ? store.getState().localSettings.theme
+    : "light";
+
   const documentHtml = escapeInject`<!DOCTYPE html>
-    <html lang="en">
+    <html lang="en" data-theme="${theme}">
       <head>
         <meta charset="UTF-8" />
         <link rel="icon" href="${logoUrl}" />

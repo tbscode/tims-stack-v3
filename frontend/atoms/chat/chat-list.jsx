@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { navigate } from "vike/client/router";
 import { redirect } from "vike/abort";
+import { useDispatch, useSelector } from "react-redux";
+import Cookies from "js-cookie";
 
 export function ChatListItem({ chat, isSelected }) {
   return (
@@ -10,7 +12,17 @@ export function ChatListItem({ chat, isSelected }) {
         isSelected ? "bg-primary text-base-200" : ""
       }`}
     >
-      <a href={`/chat/${chat.uuid}`}>
+      <button
+        onClick={(e) => {
+          console.log("CLICKED", chat.uuid, isSelected);
+          if (isSelected) {
+            //already selected then de-select
+            navigate("/chat/");
+          }
+          navigate(`/chat/${chat.uuid}/`);
+          e.preventDefault();
+        }}
+      >
         <div className="flex flex-row justify-center content-center items-center">
           <div className="avatar">
             <div className="w-10 rounded-xl">
@@ -24,8 +36,42 @@ export function ChatListItem({ chat, isSelected }) {
             <h3>{chat.uuid}</h3>
           </div>
         </div>
-      </a>
+      </button>
     </li>
+  );
+}
+
+function ThemeSelector() {
+  const dispatch = useDispatch();
+  const theme = useSelector((state) => state.localSettings?.theme);
+
+  useEffect(() => {
+    const currentDocumentTheme =
+      document.documentElement.getAttribute("data-theme");
+
+    if (currentDocumentTheme !== theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+    }
+  }, [theme]);
+
+  return (
+    <select
+      onChange={(e) => {
+        console.log("THEME", e.target.value);
+        dispatch({
+          type: "changeTheme",
+          payload: e.target.value,
+        });
+        Cookies.set("localSettings_Theme", e.target.value);
+      }}
+      value={theme}
+      className="select w-full"
+    >
+      <option>dark</option>
+      <option>light</option>
+      <option>cupcake</option>
+      <option>retro</option>
+    </select>
   );
 }
 
@@ -48,6 +94,10 @@ export function ChatList({ chat, chats, chatSelected }) {
       <li className="" key={0}></li>
       <li className="bg-base-200" key={1}>
         {chats.count} chats, on {chats.last_page} pages
+      </li>
+      <li className="" key={2}></li>
+      <li className="relative w-full" key={3}>
+        <ThemeSelector />
       </li>
     </ul>
   );

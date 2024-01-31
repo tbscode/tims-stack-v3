@@ -7,9 +7,9 @@ import atomdark from "react-syntax-highlighter/dist/cjs/styles/prism/atom-dark";
 
 import remarkGfm from "remark-gfm";
 
-function ChatNav({ chat, chatSelected }) {
+function ChatNav({ chat, chatSelected, infoOpen }) {
   return (
-    <div className="flex flex-row bg-base-200 border rounded-xl justify-left items-center p-2 md:p-3">
+    <div className="flex flex-row bg-base-200 border rounded-xl justify-left items-center p-2 md:p-3 shadow-md">
       <a href="/chat/">
         <kbd
           className={`kbd h-10 w-10 xl:h-12 xl:w-12 ${
@@ -46,16 +46,42 @@ function stringify(obj) {
   return str;
 }
 
+function MessageObtions({ message }) {
+  return (
+    <div className="dropdown dropdown-end absolute right-0 z-20">
+      <div
+        className={`btn btn-circle btn-xs hidden group-hover:block`}
+        tabIndex={0}
+        role="button"
+      >
+        <kbd className="kbd kbd-sm bg-primary">▼</kbd>
+      </div>
+      <ul
+        tabIndex={0}
+        className="dropdown-content menu shadow bg-base-100 w-52 gap-1 rounded-xl border"
+      >
+        <button className="btn btn-xs">Item 1</button>
+        <button className="btn btn-xs">Item 1</button>
+      </ul>
+    </div>
+  );
+}
+
 function ChatMessage({ message, isSelf }) {
   return (
-    <div className="max-w-full overflow-x-auto">
-      <div
-        className={`flex flex-row content-center items-center pt-1 ${
-          isSelf ? "justify-end" : "justify-start"
-        }`}
-      >
-        <div className="flex flex-col max-w-full">
-          <div className="w-fit bg-base-300 p-1 px-2 rounded-xl">
+    <div className={`max-w-full relative`}>
+      <div className="flex flex-col relative">
+        <div
+          className={`flex flex-row content-center items-center pt-1 relative ${
+            isSelf ? "justify-end" : "justify-start"
+          }`}
+        >
+          <div
+            className={`w-fit bg-base-300 p-1 px-2 rounded-xl relative group hover:bg-secondary-content max-w-full ${
+              message.read ? "" : "border border-primary"
+            }`}
+          >
+            <MessageObtions message={message} />
             <Markdown
               remarkPlugins={[remarkGfm]}
               components={{
@@ -136,7 +162,7 @@ function ChatBase({ chat, messages, user, chatSelected }) {
   );
 }
 
-export function ChatView({ chat, messages, user, chatSelected }) {
+export function ChatInfo({ chat, chatSelected }) {
   return (
     <div
       className={`w-full h-full bg-base-100 rounded-xl p-1 relative ${
@@ -144,7 +170,23 @@ export function ChatView({ chat, messages, user, chatSelected }) {
       }`}
     >
       <div className="flex flex-col h-full relative">
-        <ChatNav chat={chat} chatSelected={chatSelected} />
+        <ChatNav chat={chat} chatSelected={chatSelected} infoOpen={true} />
+        <div className="flex flex-col h-full bg-error rounded-xl">he</div>
+      </div>
+    </div>
+  );
+}
+
+export function ChatView({ chat, messages, user, chatSelected }) {
+  return (
+    <div
+      id="chatView"
+      className={`w-full h-full bg-base-100 rounded-xl p-1 relative ${
+        chatSelected ? "" : "hidden md:block"
+      }  transition-all [&.page-is-transitioning]:skew-x-1 [&.page-is-transitioning]:skew-y-1 duration-500 [&.page-is-transitioning]:duration-0 ease-in-out`}
+    >
+      <div className="flex flex-col h-full relative">
+        <ChatNav chat={chat} chatSelected={chatSelected} infoOpen={false} />
         <ChatBase
           chat={chat}
           messages={messages}

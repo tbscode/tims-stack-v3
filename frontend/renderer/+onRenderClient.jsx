@@ -7,6 +7,8 @@ import { useState, useEffect } from "react";
 import { Provider } from "react-redux";
 import WebsocketBridge from "../atoms/websocket-bridge";
 import { number } from "prop-types";
+import Cookies from "js-cookie";
+
 import "./index.css";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -35,7 +37,19 @@ async function render(pageContext) {
   }
 
   if (pageContext.INJECT_REDUX_STATE) {
-    store = getStore(pageContext.INJECT_REDUX_STATE);
+    const themeCookie = Cookies.get("localSettings_Theme");
+    const INJECT_REDUX_STATE = {
+      ...pageContext.INJECT_REDUX_STATE,
+      localSettings: themeCookie ? { theme: themeCookie } : "light",
+    };
+
+    const currentDocumentTheme =
+      document.documentElement.getAttribute("data-theme");
+    if (currentDocumentTheme !== themeCookie) {
+      document.documentElement.setAttribute("data-theme", themeCookie);
+    }
+
+    store = getStore(INJECT_REDUX_STATE);
     globalStore = store;
   }
   let state = store.getState();

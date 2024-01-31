@@ -18,9 +18,11 @@ PageShell.propTypes = {
   children: childrenPropType,
 };
 function PageShell({ pageContext, children }) {
+  // {/*className="h-screen w-0 transition-all [&.page-is-transitioning]:w-screen bg-error fixed z-50"*/}
   return (
     <React.StrictMode>
       <PageContextProvider pageContext={pageContext}>
+        <div id="transitionContainer" className="hidden"></div>
         {children}
       </PageContextProvider>
     </React.StrictMode>

@@ -10,8 +10,6 @@ function Page(pageProps) {
   const dispatch = useDispatch();
   const chats = useSelector((state) => state.chats);
 
-  console.log("CHATS ONLY", chats);
-
   return (
     <ChatBox>
       <ChatList chats={chats} chatSelected={false}></ChatList>
