@@ -6,7 +6,7 @@ from rest_framework.pagination import PageNumberPagination
 from chat.api.viewsets import UserStaffRestricedModelViewsetMixin
 from rest_framework.decorators import action
 from drf_spectacular.utils import extend_schema
-from chat.consumers.messages import InPartialMessage
+# from chat.consumers.messages import InPartialMessage
 
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 20
@@ -89,7 +89,7 @@ class MessagesModelViewSet(UserStaffRestricedModelViewsetMixin, viewsets.ModelVi
         
         serialized_message = self.serializer_class(message).data
 
-        InParti
+        #InParti
         
         #TODO: re-integrate callbacks
         #callbacks.message_incoming(request.user, message)
