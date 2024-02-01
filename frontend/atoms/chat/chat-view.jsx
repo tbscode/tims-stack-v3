@@ -3,6 +3,7 @@ import Markdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { CopyBlock, dracula } from "react-code-blocks";
+import Cookies from "js-cookie";
 import atomdark from "react-syntax-highlighter/dist/cjs/styles/prism/atom-dark";
 
 import remarkGfm from "remark-gfm";
@@ -27,23 +28,6 @@ function ChatNav({ chat, chatSelected, infoOpen }) {
       </div>
     </div>
   );
-}
-
-function stringify(obj) {
-  let cache = [];
-  let str = JSON.stringify(obj, function (key, value) {
-    if (typeof value === "object" && value !== null) {
-      if (cache.indexOf(value) !== -1) {
-        // Circular reference found, discard key
-        return;
-      }
-      // Store value in our collection
-      cache.push(value);
-    }
-    return value;
-  });
-  cache = null; // reset the cache
-  return str;
 }
 
 function MessageObtions({ message }) {
@@ -118,15 +102,46 @@ function ChatMessage({ message, isSelf }) {
   );
 }
 
-function ChatInput({}) {
+async function sendMessage({ chat, message }) {
+  const res = await fetch(`/api/messages/${chat.uuid}/send/`, {
+    headers: {
+      "X-CSRFToken": Cookies.get("csrftoken"),
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify({
+      text: message,
+    }),
+  });
+  console.log(res);
+  if (res.ok) {
+    const data = await res.json();
+    return data;
+  }
+  return null;
+}
+
+function ChatInput({ chat }) {
+  const chatInputRef = useRef();
+  const onSendMessageClick = (message) => {
+    sendMessage({ chat, message });
+  };
   return (
     <div className="bg-base-200 h-fit flex flex-row w-full rounded-xl mt-2 border p-2 gap-2">
       <textarea
+        ref={chatInputRef}
         className="textarea flex flex-grow"
         placeholder="Send a message"
       ></textarea>
       <div className="flex flex-row content-center items-center justify-end">
-        <button className="btn btn-lg bg-base-100">Large</button>
+        <button
+          className="btn btn-lg bg-base-100"
+          onClick={() => {
+            onSendMessageClick(chatInputRef.current.value);
+          }}
+        >
+          arge
+        </button>
       </div>
     </div>
   );
@@ -157,7 +172,7 @@ function ChatBase({ chat, messages, user, chatSelected }) {
         })}
         <div ref={messagesEndRef} />
       </div>
-      <ChatInput />
+      <ChatInput chat={chat} />
     </>
   );
 }
@@ -178,6 +193,19 @@ export function ChatInfo({ chat, chatSelected }) {
 }
 
 export function ChatView({ chat, messages, user, chatSelected }) {
+  if (!chat) {
+    return (
+      <div
+        id="chatView"
+        className={`w-full h-full bg-base-100 rounded-xl p-1 relative ${
+          chatSelected ? "" : "hidden md:block"
+        }  transition-all [&.page-is-transitioning]:skew-x-1 [&.page-is-transitioning]:skew-y-1 duration-500 [&.page-is-transitioning]:duration-0 ease-in-out text-2xl bg-error`}
+      >
+        {" "}
+        There seem to be no chat to render{" "}
+      </div>
+    );
+  }
   return (
     <div
       id="chatView"

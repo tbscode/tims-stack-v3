@@ -7,4 +7,7 @@ async function onPageTransitionStart(pageContext) {
     .getElementById("transitionContainer")
     .classList.add("page-is-transitioning");
   document.getElementById("chatView")?.classList.add("page-is-transitioning");
+  document
+    .getElementById("listViewProfile")
+    ?.classList.add("page-is-transitioning");
 }

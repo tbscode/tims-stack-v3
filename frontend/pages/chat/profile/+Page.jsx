@@ -1,16 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { ChatView } from "../../../atoms/chat/chat-view";
 import { ChatList } from "../../../atoms/chat/chat-list";
+import { ChatView } from "../../../atoms/chat/chat-view";
 import { ChatBox } from "../../../atoms/chat/base";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
-import { ChatSplit } from "../../../atoms/chat-split";
 import Cookies from "js-cookie";
 
 export default Page;
@@ -18,27 +10,27 @@ export default Page;
 function Page(pageProps) {
   const dispatch = useDispatch();
   const chats = useSelector((state) => state.chats);
+  console.log("PAGE PROPS", pageProps);
+  // following are actually only request if `chatId` param is present
   const messages = useSelector((state) => state.messages);
   const user = useSelector((state) => state.user);
   const chat = useSelector((state) => state.chat);
-
-  console.log(
-    "SELECTED CHAT & CHATS & MESSAGES & USER",
-    chat,
-    chats,
-    messages,
-    user
-  );
+  console.log("chat", chat);
 
   return (
     <ChatBox>
-      <ChatList chat={chat} chats={chats} chatSelected={true}></ChatList>
+      <ChatList
+        chats={chats}
+        chatSelected={false}
+        initalViewActive="profile"
+      ></ChatList>
       <ChatView
+        chats={chats}
+        chatSelected={chat}
         chat={chat}
-        messages={messages}
         user={user}
-        chatSelected={true}
-      ></ChatView>
+        messages={messages}
+      />
     </ChatBox>
   );
 }

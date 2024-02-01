@@ -9,4 +9,7 @@ async function onPageTransitionEnd(pageContext) {
   document
     .getElementById("chatView")
     ?.classList.remove("page-is-transitioning");
+  document
+    .getElementById("listViewProfile")
+    ?.classList.remove("page-is-transitioning");
 }

@@ -11,18 +11,26 @@ async function onBeforeRender(pageContext) {
     throw render("/login/");
   }
   // Still the sessionId could be expired, test by fetching user_data
-  const chatId = pageContext.routeParams.chatId;
-  const res = await fetch(
-    `${INTERNAL_BACKEND_ROUTE}/api/user_data${chatId ? "/" + chatId : ""}`,
-    {
-      headers: {
-        cookie: pageContext.requestHeaders.cookie,
-        "X-CSRFToken": pageContext.xcsrfToken,
-      },
-      method: "GET",
-      credentials: "include",
-    }
-  );
+  let chatId = pageContext.routeParams.chatId;
+  console.log("CONTEXT", pageContext);
+
+  // special routing for sub settings pages
+  let fetchUrl = `${INTERNAL_BACKEND_ROUTE}/api/user_data`;
+  if (chatId) {
+    fetchUrl = `${INTERNAL_BACKEND_ROUTE}/api/user_data/${chatId}`;
+  } else if (pageContext.urlParsed.search?.chatId) {
+    chatId = pageContext.urlParsed.search.chatId;
+    fetchUrl = `${INTERNAL_BACKEND_ROUTE}/api/user_data/${chatId}`;
+  }
+
+  const res = await fetch(fetchUrl, {
+    headers: {
+      cookie: pageContext.requestHeaders.cookie,
+      "X-CSRFToken": pageContext.xcsrfToken,
+    },
+    method: "GET",
+    credentials: "include",
+  });
 
   if (res.status === 403) {
     throw redirect("/login/");
@@ -41,7 +49,7 @@ async function onBeforeRender(pageContext) {
   return {
     pageContext: {
       xcsrfToken: pageContext.xcsrfToken,
-      chatId: pageContext.routeParams.chatId,
+      chatId,
       INJECT_REDUX_STATE: chatId
         ? { ...baseReduxState, messages: data.messages, chat: data.chat }
         : baseReduxState,
