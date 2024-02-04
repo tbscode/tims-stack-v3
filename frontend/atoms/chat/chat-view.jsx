@@ -10,7 +10,10 @@ import remarkGfm from "remark-gfm";
 
 function ChatNav({ chat, chatSelected, infoOpen }) {
   return (
-    <div className="flex flex-row bg-base-200 border rounded-xl justify-left items-center p-2 md:p-3 shadow-md">
+    <a
+      href={infoOpen ? `/chat/${chat.uuid}` : `/chat/${chat.uuid}/info`}
+      className="flex flex-row bg-base-200 border rounded-xl justify-left items-center p-2 md:p-3 shadow-md"
+    >
       <a href="/chat/">
         <kbd
           className={`kbd h-10 w-10 xl:h-12 xl:w-12 ${
@@ -26,7 +29,7 @@ function ChatNav({ chat, chatSelected, infoOpen }) {
         </h1>
         <h3>{chat.uuid}</h3>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -186,7 +189,15 @@ export function ChatInfo({ chat, chatSelected }) {
     >
       <div className="flex flex-col h-full relative">
         <ChatNav chat={chat} chatSelected={chatSelected} infoOpen={true} />
-        <div className="flex flex-col h-full bg-error rounded-xl">he</div>
+        <div className="flex flex-col h-full rounded-xl mt-2 border p-2">
+          <h1 className="text-xl">Chat Info</h1>
+          <span>Chat description</span>
+          <input
+            type="text"
+            placeholder="some text here"
+            className="input input-bordered input-accent max-w-md"
+          />
+        </div>
       </div>
     </div>
   );

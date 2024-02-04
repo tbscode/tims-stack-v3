@@ -10,8 +10,8 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-import { ChatSplit } from "../../../atoms/chat-split";
 import Cookies from "js-cookie";
+// csrftoken
 
 export default Page;
 

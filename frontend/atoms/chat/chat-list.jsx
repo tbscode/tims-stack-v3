@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { navigate } from "vike/client/router";
 import { redirect } from "vike/abort";
 import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { useProfileData, useUpdateProfile } from "../api/profile";
 import Cookies from "js-cookie";
 
 export function ChatListItem({ chat, isSelected }) {
@@ -23,7 +25,7 @@ export function ChatListItem({ chat, isSelected }) {
             <h1 className="text-xl">
               {chat.partner.first_name} {chat.partner.second_name}
             </h1>
-            <h3>{chat.uuid}</h3>
+            <h3>{chat.description}</h3>
           </div>
         </div>
       </a>
@@ -73,28 +75,21 @@ function ChatListNav({ chat, viewActive, chatSelected, setViewActive }) {
         : `/chat/`
       : `/chat/profile` + (chatSelected ? `?chatId=${chat?.uuid}` : "");
   return (
-    <div className="w-full bg-error flex flex-row justify-start items-center content-center p-1 rounded-xl relative">
-      <a href={redirectRoute} className="avatar border-2 rounded-xl">
-        <div className="w-12 rounded-xl">
-          <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-        </div>
-      </a>
+    <div className="w-full bg-base-300 shadow flex flex-row justify-start items-center content-center p-1 rounded-xl relative">
+      <div className="tooltip tooltip-bottom" data-tip="Profile & Settings">
+        <a href={redirectRoute} className={`avatar rounded-xl`}>
+          <div
+            className={`w-12 rounded-xl ${
+              viewActive == "profile" ? "border-2 border-error" : "border2"
+            }`}
+          >
+            <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+          </div>
+        </a>
+      </div>
       <div className="flex flex-row justify-end items-center content-center h-full w-full gap-2">
         <button className="btn btn-circle">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+          <kbd className="kbd">+</kbd>
         </button>
         <button className="btn btn-circle">
           <svg
@@ -153,24 +148,47 @@ export function ListViewChats({ chat, chats, chatSelected }) {
   );
 }
 
-function ListViewProfile({}) {
+function ListViewProfile({ user }) {
+  const { data: profile } = useProfileData(user.profile);
+  const { register, handleSubmit } = useForm();
+  const { mutate } = useUpdateProfile();
   return (
-    <div id="listViewProfile" className="flex flex-col w-full gap-2 pt-2">
+    <form
+      id="listViewProfile"
+      className="flex bg-base-300 flex-col w-full gap-2 p-2 mt-4 shadow rounded-xl"
+    >
+      <div className="flex flex-row w-full">
+        <h1 className="text-2xl">Profile</h1>
+        <div className="w-full flex flex-row justify-end content-center items-center gap-2 px-2">
+          <div className="badge badge-lg">987,654</div>
+          <button className="btn btn-xs btn-success">save</button>
+        </div>
+      </div>
+      <div className="w-full bg-error">error display placeholder</div>
+      <span>First name</span>
       <input
         type="text"
-        placeholder="First name"
+        placeholder="John"
         className="input input-bordered input-accent w-full"
       />
+      <span>Second Name</span>
       <input
         type="text"
-        placeholder="Second name"
+        placeholder="Doe"
         className="input input-bordered input-accent w-full"
       />
-    </div>
+      <span>Email</span>
+      <input
+        type="text"
+        placeholder="example@gmail.com"
+        className="input input-bordered input-accent w-full"
+      />
+    </form>
   );
 }
 
 export function ChatList({
+  user,
   chat,
   chats,
   chatSelected,
@@ -192,7 +210,7 @@ export function ChatList({
       {viewActive == "chats" && (
         <ListViewChats chats={chats} chat={chat} chatSelected={chatSelected} />
       )}
-      {viewActive == "profile" && <ListViewProfile />}
+      {viewActive == "profile" && <ListViewProfile user={user} />}
     </div>
   );
 }

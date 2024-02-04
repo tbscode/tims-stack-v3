@@ -20,8 +20,10 @@ function Page(pageProps) {
   return (
     <ChatBox>
       <ChatList
+        user={user}
+        chat={chat}
         chats={chats}
-        chatSelected={false}
+        chatSelected={chat}
         initalViewActive="profile"
       ></ChatList>
       <ChatView
