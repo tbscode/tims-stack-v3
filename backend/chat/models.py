@@ -12,6 +12,8 @@ class Chat(models.Model):
     u1 = models.ForeignKey("core.User", on_delete=models.CASCADE, related_name="u1")
     u2 = models.ForeignKey("core.User", on_delete=models.CASCADE, related_name="u2")
     
+    description = models.TextField(default="")
+    
     created = models.DateTimeField(auto_now_add=True)
     
     def get_partner(self, user):
@@ -76,7 +78,7 @@ class ChatSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Chat
-        fields = ['uuid', 'u1', 'u2', 'created']
+        fields = ['uuid', 'u1', 'u2', 'created', 'description']
         
     def to_representation(self, instance):
         representation = super().to_representation(instance)
