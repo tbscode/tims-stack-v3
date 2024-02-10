@@ -1,10 +1,11 @@
 {
   "scripts": {
-    "dev": "vite dev --host 0.0.0.0",
+    "dev": "npm run server:dev",
+    "prod": "npm run build && npm run server:prod",
     "build": "vite build",
-    "preview": "vite preview",
-    "prod": "vite build && vite preview --host 0.0.0.0",
-    "test": "tsc --noEmit"
+    "server:dev": "node ./server",
+    "server:prod": "cross-env NODE_ENV=production node ./server",
+    "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.17.19",
